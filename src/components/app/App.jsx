@@ -12,20 +12,31 @@ class App extends Component {
 
   addToBtnGood = () => {
     this.setState(prevState => ({ good: prevState.good + 1 }));
+    this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
 
   addToBtnNeutral = () => {
     this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
+    this.countTotalFeedback();
   };
 
   addToBtnBad = () => {
     this.setState(prevState => ({ bad: prevState.bad + 1 }));
+    this.countTotalFeedback();
   };
 
   countTotalFeedback = () => {
-    this.setState(state => ({
-      ...state,
-      total: state.good + state.neutral + state.bad,
+    this.setState(prevState => ({
+      ...prevState,
+      total: prevState.good + prevState.neutral + prevState.bad,
+    }));
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      positivePercentage: (prevState.good / 100) * prevState.total,
     }));
   };
 
@@ -56,8 +67,8 @@ class App extends Component {
             good={this.state.good}
             neutral={this.state.neutral}
             bad={this.state.bad}
-            total={this.countTotalFeedback}
-            // positivePercentage={5}
+            total={this.state.total}
+            positivePercentage={this.state.positivePercentage}
           />
         </Section>
       </div>

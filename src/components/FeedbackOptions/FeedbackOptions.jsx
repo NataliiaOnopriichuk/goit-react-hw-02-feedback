@@ -1,15 +1,13 @@
-// блок кнопок
 export const FeedbackOptions = ({ options }) => {
-  const { bad, good, neutral } = options;
   return (
     <>
-      <button type="button" onClick={good}>
+      <button type="button" name="good" onClick={options}>
         Good
       </button>
-      <button type="button" onClick={neutral}>
+      <button type="button" name="neutral" onClick={options}>
         Neutral
       </button>
-      <button type="button" onClick={bad}>
+      <button type="button" name="bad" onClick={options}>
         Bad
       </button>
     </>

@@ -8,13 +8,13 @@ export const Statistics = ({
   positivePercentage = 100,
 }) => {
   return total >= 1 ? (
-    <>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Positive: {positivePercentage}%</p>
-    </>
+    <ul>
+      <li>Good: {good}</li>
+      <li>Neutral: {neutral}</li>
+      <li>Bad: {bad}</li>
+      <li>Total: {total}</li>
+      <li>Positive: {positivePercentage}%</li>
+    </ul>
   ) : (
     <Notification message="There is no feedback" />
   );

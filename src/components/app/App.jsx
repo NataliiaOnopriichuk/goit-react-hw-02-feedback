@@ -10,19 +10,9 @@ class App extends Component {
     bad: 0,
   };
 
-  addToBtnGood = () => {
-    this.setState(prevState => ({ good: prevState.good + 1 }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
-  };
-
-  addToBtnNeutral = () => {
-    this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
-    this.countTotalFeedback();
-  };
-
-  addToBtnBad = () => {
-    this.setState(prevState => ({ bad: prevState.bad + 1 }));
+  addToStatisticsValue = e => {
+    const { name } = e.target;
+    this.setState(prevState => ({ [name]: prevState[name] + 1 }));
     this.countTotalFeedback();
   };
 
@@ -33,12 +23,12 @@ class App extends Component {
     }));
   };
 
-  countPositiveFeedbackPercentage = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      positivePercentage: (prevState.good / 100) * prevState.total,
-    }));
-  };
+  // countPositiveFeedbackPercentage = () => {
+  //   this.setState(prevState => ({
+  //     ...prevState,
+  //     positivePercentage: (prevState.good / 100) * prevState.total,
+  //   }));
+  // };
 
   render() {
     return (
@@ -54,11 +44,7 @@ class App extends Component {
       >
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={{
-              good: this.addToBtnGood,
-              neutral: this.addToBtnNeutral,
-              bad: this.addToBtnBad,
-            }}
+            options={this.addToStatisticsValue}
             onLeaveFeedback={2}
           />
         </Section>

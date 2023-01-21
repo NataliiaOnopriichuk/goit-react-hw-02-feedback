@@ -14,6 +14,7 @@ class App extends Component {
     const { name } = e.target;
     this.setState(prevState => ({ [name]: prevState[name] + 1 }));
     this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
 
   countTotalFeedback = () => {
@@ -23,12 +24,12 @@ class App extends Component {
     }));
   };
 
-  // countPositiveFeedbackPercentage = () => {
-  //   this.setState(prevState => ({
-  //     ...prevState,
-  //     positivePercentage: (prevState.good / 100) * prevState.total,
-  //   }));
-  // };
+  countPositiveFeedbackPercentage = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      positivePercentage: Math.round((prevState.good * 100) / prevState.total),
+    }));
+  };
 
   render() {
     return (
@@ -37,6 +38,7 @@ class App extends Component {
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
+          textAlign: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',

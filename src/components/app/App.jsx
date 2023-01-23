@@ -13,25 +13,21 @@ class App extends Component {
   addToStatisticsValue = e => {
     const { name } = e.target;
     this.setState(prevState => ({ [name]: prevState[name] + 1 }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   countTotalFeedback = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      total: prevState.good + prevState.neutral + prevState.bad,
-    }));
+    const { good, bad, neutral } = this.state;
+    return good + bad + neutral;
   };
 
   countPositiveFeedbackPercentage = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      positivePercentage: Math.round((prevState.good * 100) / prevState.total),
-    }));
+    const { good } = this.state;
+    return Math.round((good * 100) / this.countTotalFeedback());
   };
 
   render() {
+    const { good, bad, neutral } = this.state;
+
     return (
       <div
         style={{
@@ -46,17 +42,17 @@ class App extends Component {
       >
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={this.addToStatisticsValue}
-            onLeaveFeedback={2}
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.addToStatisticsValue}
           />
         </Section>
         <Section title="Statistics">
           <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.state.total}
-            positivePercentage={this.state.positivePercentage}
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={this.countTotalFeedback}
+            positivePercentage={this.countPositiveFeedbackPercentage}
           />
         </Section>
       </div>
